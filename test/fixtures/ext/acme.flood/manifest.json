@@ -1,0 +1,17 @@
+{
+  "id": "acme.flood",
+  "name": "Flood",
+  "version": "1.0.0",
+  "main": "index.js",
+  "permissions": [
+    "editor.read"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "flood",
+        "title": "flood"
+      }
+    ]
+  }
+}

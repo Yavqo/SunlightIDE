@@ -1,0 +1,27 @@
+{
+  "id": "sunlight.word-count",
+  "name": "Word Count",
+  "version": "1.0.0",
+  "publisher": "Sunlight",
+  "description": "Live word count in the status bar, plus lines, characters and reading time on click.",
+  "icon": "icon.svg",
+  "main": "index.js",
+  "categories": [
+    "Productivity"
+  ],
+  "permissions": [
+    "editor.read"
+  ],
+  "activationEvents": [
+    "onStartup"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "stats",
+        "title": "Show Document Statistics",
+        "category": "Word Count"
+      }
+    ]
+  }
+}

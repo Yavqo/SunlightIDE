@@ -1,0 +1,15 @@
+{
+  "id": "acme.spin",
+  "name": "Spin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "permissions": [],
+  "contributes": {
+    "commands": [
+      {
+        "id": "loop",
+        "title": "loop"
+      }
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "sunlight.paper-theme",
+  "name": "Paper",
+  "version": "1.0.0",
+  "publisher": "Sunlight",
+  "description": "A warm, low-glare light theme that feels like printed paper.",
+  "icon": "icon.svg",
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "id": "paper",
+        "label": "Paper",
+        "type": "light",
+        "colors": {
+          "background": "#FBF7EF",
+          "sidebar": "#F3ECDD",
+          "foreground": "#2B2A26",
+          "mutedForeground": "#7A7567",
+          "accent": "#B4491F",
+          "border": "rgba(60, 50, 30, 0.14)",
+          "editorBackground": "#FFFDF8",
+          "editorForeground": "#2B2A26",
+          "selection": "rgba(180, 73, 31, 0.22)",
+          "lineHighlight": "rgba(120, 100, 50, 0.06)",
+          "gutterForeground": "#B3AA94",
+          "terminalBackground": "#FFFDF8"
+        },
+        "tokens": {
+          "kw": "#9B2C2C",
+          "str": "#2F6B3A",
+          "num": "#B45309",
+          "com": "#9A917C",
+          "fn": "#1F4E8C",
+          "typ": "#6B3FA0",
+          "op": "#7A7567",
+          "tag": "#9B2C2C",
+          "attr": "#B45309",
+          "prop": "#1F4E8C",
+          "var": "#6B3FA0",
+          "hd": "#B4491F",
+          "em": "#2B2A26",
+          "link": "#1F4E8C"
+        }
+      }
+    ]
+  }
+}

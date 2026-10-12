@@ -1,0 +1,50 @@
+{
+  "id": "sunlight.midnight-theme",
+  "name": "Midnight",
+  "version": "1.0.0",
+  "publisher": "Sunlight",
+  "description": "A deep navy dark theme with soft pastel syntax colours.",
+  "icon": "icon.svg",
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "id": "midnight",
+        "label": "Midnight",
+        "type": "dark",
+        "colors": {
+          "background": "#0A0F1E",
+          "sidebar": "#0F1629",
+          "foreground": "#E6EAF5",
+          "mutedForeground": "#8B96B3",
+          "accent": "#7AA2FF",
+          "border": "rgba(255, 255, 255, 0.08)",
+          "editorBackground": "#0A0F1E",
+          "editorForeground": "#D6DCF0",
+          "selection": "rgba(122, 162, 255, 0.30)",
+          "lineHighlight": "rgba(255, 255, 255, 0.04)",
+          "gutterForeground": "#4A5575",
+          "terminalBackground": "#070B16"
+        },
+        "tokens": {
+          "kw": "#C792EA",
+          "str": "#C3E88D",
+          "num": "#F78C6C",
+          "com": "#5C6A94",
+          "fn": "#82AAFF",
+          "typ": "#FFCB6B",
+          "op": "#89DDFF",
+          "tag": "#F07178",
+          "attr": "#FFCB6B",
+          "prop": "#82AAFF",
+          "var": "#89DDFF",
+          "hd": "#82AAFF",
+          "em": "#E6EAF5",
+          "link": "#82AAFF"
+        }
+      }
+    ]
+  }
+}

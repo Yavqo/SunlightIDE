@@ -1,0 +1,116 @@
+{
+  "id": "sunlight.web-snippets",
+  "name": "Web Snippets",
+  "version": "1.0.0",
+  "publisher": "Sunlight",
+  "description": "Handy snippets for HTML, JavaScript, CSS and Python. Type a trigger and press Tab.",
+  "icon": "icon.svg",
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "html",
+        "snippets": {
+          "ul": {
+            "body": "<ul>\n\t<li>$0</li>\n</ul>",
+            "description": "Unordered list"
+          },
+          "table": {
+            "body": "<table>\n\t<thead>\n\t\t<tr><th>$0</th></tr>\n\t</thead>\n\t<tbody>\n\t\t<tr><td></td></tr>\n\t</tbody>\n</table>",
+            "description": "Table"
+          },
+          "form": {
+            "body": "<form action=\"${1:/}\" method=\"post\">\n\t<label>\n\t\t${2:Name}\n\t\t<input type=\"text\" name=\"${3:name}\">\n\t</label>\n\t<button type=\"submit\">${4:Send}</button>\n</form>$0",
+            "description": "Form with one field"
+          },
+          "nav": {
+            "body": "<nav>\n\t<a href=\"${1:/}\">${2:Home}</a>\n\t<a href=\"${3:/about}\">${4:About}</a>\n</nav>$0",
+            "description": "Navigation links"
+          }
+        }
+      },
+      {
+        "language": "javascript",
+        "snippets": {
+          "fetchjson": {
+            "body": "const response = await fetch(${1:url});\nif (!response.ok) throw new Error(`Request failed: ${response.status}`);\nconst ${2:data} = await response.json();$0",
+            "description": "fetch() and parse JSON"
+          },
+          "useState": {
+            "body": "const [${1:value}, set${2:Value}] = useState(${3:null});$0",
+            "description": "React state hook"
+          },
+          "useEffect": {
+            "body": "useEffect(() => {\n\t$0\n\treturn () => {};\n}, [${1}]);",
+            "description": "React effect hook"
+          },
+          "component": {
+            "body": "export function ${1:Component}({ ${2:props} }) {\n\treturn (\n\t\t<div>$0</div>\n\t);\n}",
+            "description": "React function component"
+          },
+          "debounce": {
+            "body": "function debounce(fn, ms = 200) {\n\tlet timer;\n\treturn (...args) => {\n\t\tclearTimeout(timer);\n\t\ttimer = setTimeout(() => fn(...args), ms);\n\t};\n}$0",
+            "description": "Debounce helper"
+          },
+          "promiseall": {
+            "body": "const [${1:a}, ${2:b}] = await Promise.all([\n\t${3:first()},\n\t${4:second()},\n]);$0",
+            "description": "Run promises in parallel"
+          }
+        }
+      },
+      {
+        "language": "typescript",
+        "snippets": {
+          "interface": {
+            "body": "interface ${1:Name} {\n\t${2:key}: ${3:string};\n}$0",
+            "description": "Interface"
+          },
+          "fetchjson": {
+            "body": "const response = await fetch(${1:url});\nconst ${2:data} = (await response.json()) as ${3:unknown};$0",
+            "description": "fetch() and parse JSON"
+          }
+        }
+      },
+      {
+        "language": "css",
+        "snippets": {
+          "center": {
+            "body": "display: grid;\nplace-items: center;$0",
+            "description": "Centre with grid"
+          },
+          "grid3": {
+            "body": "display: grid;\ngrid-template-columns: repeat(3, 1fr);\ngap: ${1:16px};$0",
+            "description": "Three-column grid"
+          },
+          "dark": {
+            "body": "@media (prefers-color-scheme: dark) {\n\t$0\n}",
+            "description": "Dark mode media query"
+          },
+          "reset": {
+            "body": "*, *::before, *::after {\n\tbox-sizing: border-box;\n}\nbody {\n\tmargin: 0;\n}$0",
+            "description": "Minimal reset"
+          }
+        }
+      },
+      {
+        "language": "python",
+        "snippets": {
+          "dataclass": {
+            "body": "from dataclasses import dataclass\n\n@dataclass\nclass ${1:Name}:\n\t${2:field}: ${3:str}$0",
+            "description": "Dataclass"
+          },
+          "argparse": {
+            "body": "import argparse\n\nparser = argparse.ArgumentParser(description='${1:Description}')\nparser.add_argument('${2:path}')\nargs = parser.parse_args()$0",
+            "description": "Argument parser"
+          },
+          "trye": {
+            "body": "try:\n\t$0\nexcept ${1:Exception} as error:\n\traise",
+            "description": "try / except and re-raise"
+          }
+        }
+      }
+    ]
+  }
+}

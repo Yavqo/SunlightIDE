@@ -1,0 +1,15 @@
+{
+  "id": "acme.loadthrow",
+  "name": "Loadthrow",
+  "version": "1.0.0",
+  "main": "index.js",
+  "permissions": [],
+  "contributes": {
+    "commands": [
+      {
+        "id": "x",
+        "title": "x"
+      }
+    ]
+  }
+}

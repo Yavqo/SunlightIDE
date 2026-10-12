@@ -1,0 +1,21 @@
+(async () => {
+  const w = window.__sunlight;
+  const out = { passed: 0, failed: [], errors: [] };
+  const check = (label, value) => { if (value) out.passed++; else out.failed.push(label); };
+  window.addEventListener('error', (e) => out.errors.push(e.message));
+  const [left, right] = w.groups.groups;
+  check('split layout and divider ratio survive a crash', !!right && w.groups.ratio === 0.62);
+  check('active pane and draft recover', w.groups.active === right && w.S.active.buffer.getText() === 'right draft\nsecond line' && w.S.active.buffer.dirty);
+  check('independent tab membership is restored', left.docs.length === 1 && right.docs.length === 3);
+  check('tab order is restored in each group', right.docs[0].path === DEMO + '/edited.txt' && right.docs[1].path === DEMO + '/clean.txt' && right.docs[2].name === 'Untitled-1');
+  check('left edits and selections recover', left.editor.buffer.getLine(0) === 'left recovered edit' && left.editor.head.line === 7 && left.editor.head.col === 4);
+  check('right selection recovers independently', right.editor.head.line === 1 && right.editor.head.col === 3);
+  check('left scroll position recovers', left.editor.scroller.scrollTop >= 290);
+  const shared = left.active;
+  w.activate(shared, right);
+  check('restored shared views reference one buffer', left.editor.buffer === right.editor.buffer && w.S.docs.filter((d) => d.path === shared.path).length === 1);
+  check('shared file has separate restored view positions', right.editor.head.line === 0 && left.editor.head.line === 7);
+  await w.closeDoc(shared, left);
+  check('closing a restored shared view preserves dirty data', w.S.docs.includes(shared) && shared.buffer.dirty && right.docs.includes(shared));
+  return out;
+})();

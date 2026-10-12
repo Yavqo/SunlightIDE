@@ -1,0 +1,17 @@
+{
+  "id": "acme.store",
+  "name": "Store",
+  "version": "1.0.0",
+  "main": "index.js",
+  "permissions": [
+    "storage"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "run",
+        "title": "run"
+      }
+    ]
+  }
+}

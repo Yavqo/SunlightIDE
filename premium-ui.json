@@ -1,0 +1,25 @@
+{
+  "profile": "product-admin",
+  "sourceRoots": [
+    "src/renderer"
+  ],
+  "locale": "en",
+  "canonicalMap": "UX-CONTRACT.md",
+  "requiredCapabilities": [
+    "Scrollbar",
+    "Toast"
+  ],
+  "requiredCommands": [
+    "unit",
+    "e2e",
+    "recovery"
+  ],
+  "commands": {
+    "unit": "npm test",
+    "e2e": "npm run smoke",
+    "recovery": "npm run test:split-recovery"
+  },
+  "evidence": {
+    "failurePaths": "test/smoke/split-recovery-read.js"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "sunlight.json-tools",
+  "name": "JSON Tools",
+  "version": "1.0.0",
+  "publisher": "Sunlight",
+  "description": "Format, minify, sort and validate JSON, with the exact line and column of any error.",
+  "icon": "icon.svg",
+  "main": "index.js",
+  "categories": [
+    "Formatters"
+  ],
+  "permissions": [
+    "editor.read",
+    "editor.write"
+  ],
+  "activationEvents": [
+    "onLanguage:json"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "format",
+        "title": "Format JSON",
+        "category": "JSON"
+      },
+      {
+        "id": "minify",
+        "title": "Minify JSON",
+        "category": "JSON"
+      },
+      {
+        "id": "sortKeys",
+        "title": "Sort JSON Keys",
+        "category": "JSON"
+      },
+      {
+        "id": "validate",
+        "title": "Validate JSON",
+        "category": "JSON"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "Mod+Alt+J",
+        "command": "format"
+      }
+    ]
+  }
+}

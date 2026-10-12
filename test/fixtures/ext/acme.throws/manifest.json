@@ -1,0 +1,23 @@
+{
+  "id": "acme.throws",
+  "name": "Throws",
+  "version": "1.0.0",
+  "main": "index.js",
+  "permissions": [],
+  "contributes": {
+    "commands": [
+      {
+        "id": "fail",
+        "title": "fail"
+      },
+      {
+        "id": "failAsync",
+        "title": "failAsync"
+      },
+      {
+        "id": "returnsFunction",
+        "title": "returnsFunction"
+      }
+    ]
+  }
+}

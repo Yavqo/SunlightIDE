@@ -1,0 +1,8 @@
+:root { --accent: #0064E0; }
+/* layout */
+.home h1 {
+  color: var(--accent);
+  margin: 0 auto 24px;
+  font: 500 48px/56px "Plus Jakarta Sans", sans-serif;
+}
+@media (max-width: 767px) { .home h1 { font-size: 32px; } }

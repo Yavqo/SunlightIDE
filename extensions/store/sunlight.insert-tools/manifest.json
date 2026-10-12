@@ -1,0 +1,58 @@
+{
+  "id": "sunlight.insert-tools",
+  "name": "Insert Tools",
+  "version": "1.0.0",
+  "publisher": "Sunlight",
+  "description": "Insert the current date or time, a random UUID or placeholder text at every cursor.",
+  "icon": "icon.svg",
+  "main": "index.js",
+  "categories": [
+    "Productivity"
+  ],
+  "permissions": [
+    "editor.read",
+    "editor.write"
+  ],
+  "activationEvents": [
+    "onCommand:date",
+    "onCommand:dateTime",
+    "onCommand:time",
+    "onCommand:uuid",
+    "onCommand:lorem"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "date",
+        "title": "Insert Date",
+        "category": "Insert"
+      },
+      {
+        "id": "dateTime",
+        "title": "Insert Date and Time",
+        "category": "Insert"
+      },
+      {
+        "id": "time",
+        "title": "Insert Time",
+        "category": "Insert"
+      },
+      {
+        "id": "uuid",
+        "title": "Insert UUID",
+        "category": "Insert"
+      },
+      {
+        "id": "lorem",
+        "title": "Insert Placeholder Text",
+        "category": "Insert"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "Mod+Alt+D",
+        "command": "date"
+      }
+    ]
+  }
+}

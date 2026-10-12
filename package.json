@@ -1,0 +1,33 @@
+{
+  "name": "sunlight-ide",
+  "productName": "SunlightIDE",
+  "version": "0.1.0",
+  "description": "SunlightIDE: a code editor with its own editing engine, built on Electron.",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.mjs",
+    "smoke": "bash scripts/smoke.sh",
+    "icon": "electron scripts/make-icon.js",
+    "vendor": "node scripts/vendor.js",
+    "postinstall": "node scripts/vendor.js && node scripts/icons.js",
+    "icons": "node scripts/icons.js",
+    "registry:build": "node scripts/build-registry.js",
+    "test:recovery": "node scripts/test-recovery.js",
+    "test:split-recovery": "node scripts/test-recovery.js --split"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
+    "electron": "^44.7.0",
+    "material-icon-theme": "^5.39.0"
+  },
+  "dependencies": {
+    "@lydell/node-pty": "^1.2.0-beta.15",
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
+    "typescript": "6.0.3"
+  }
+}

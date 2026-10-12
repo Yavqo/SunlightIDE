@@ -1,0 +1,23 @@
+(async () => {
+  const w = window.__sunlight;
+  await w.setRoot(DEMO);
+  await w.openFile(DEMO + '/src/util.py');
+  await w.openFile(DEMO + '/style.css');
+  await w.openFile(DEMO + '/app.js');
+  const e = w.editor;
+  e.setSel({ line: 16, col: 14 }, { line: 16, col: 14 });
+  document.querySelector('.find').hidden = false;
+  w.runCommand('find');
+  const q = document.querySelector('.f-q');
+  q.value = 'item';
+  q.dispatchEvent(new Event('input'));
+  await new Promise((r) => setTimeout(r, 200));
+  w.runCommand('toggle-terminal');
+  const t = w.terminal;
+  t.setCwd(DEMO);
+  t.submit('ls -1 && echo done');
+  await new Promise((r) => setTimeout(r, 900));
+  e.scroller.scrollTop = 0;
+  e.render();
+  return { tabs: document.querySelectorAll('.tab').length, term: t.lines.map((l) => l.text).join('|') };
+})();

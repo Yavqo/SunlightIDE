@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; script-src 'self'; worker-src blob:; connect-src 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SunlightIDE</title>
+  <link rel="stylesheet" href="vendor/xterm.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="splash" class="splash" aria-hidden="true">
+    <div class="splash-inner">
+      <svg class="splash-mark" viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round">
+        <g class="rays"><path d="M36 8v8M36 56v8M8 36h8M56 36h8M16.2 16.2l5.7 5.7M50.1 50.1l5.7 5.7M16.2 55.8l5.7-5.7M50.1 21.9l5.7-5.7"/></g>
+        <circle class="core" cx="36" cy="36" r="13" fill="currentColor" stroke="none"/>
+      </svg>
+      <div class="splash-name">SunlightIDE</div>
+      <div class="splash-bar"><i></i></div>
+    </div>
+  </div>
+  <div id="app" class="app">
+    <header class="titlebar" id="titlebar">
+      <div class="tb-left">
+        <div class="tb-traffic" id="tb-traffic"></div>
+        <button class="icon-btn" id="btn-sidebar" aria-label="Toggle sidebar" title="Toggle sidebar"></button>
+      </div>
+      <button class="tb-search" id="btn-quick" aria-label="Go to file">
+        <span class="tb-search-icon" id="tb-search-icon"></span>
+        <span id="tb-title">SunlightIDE</span>
+      </button>
+      <div class="tb-right">
+        <button class="icon-btn" id="btn-terminal" aria-label="Toggle terminal" title="Toggle terminal"></button>
+        <button class="icon-btn" id="btn-palette" aria-label="Command palette" title="Command palette"></button>
+      </div>
+    </header>
+
+    <div class="workbench" id="workbench">
+      <nav class="activity" aria-label="Views">
+        <button class="icon-btn view-btn active" data-view="explorer" aria-label="Explorer" title="Explorer"></button>
+        <button class="icon-btn view-btn" data-view="search" aria-label="Search" title="Search"></button>
+        <button class="icon-btn view-btn" data-view="git" aria-label="Source Control" title="Source Control (Ctrl+Shift+G)"></button>
+        <button class="icon-btn view-btn" data-view="ext" aria-label="Extensions" title="Extensions (Cmd+Shift+X)"></button>
+        <span class="grow"></span>
+        <button class="icon-btn" id="btn-settings" aria-label="Settings" title="Settings"></button>
+      </nav>
+
+      <aside class="sidebar" id="sidebar">
+        <section class="panel" id="panel-explorer">
+          <div class="panel-head">
+            <span class="panel-title" id="explorer-title">Explorer</span>
+            <span class="panel-actions">
+              <button class="icon-btn sm" id="ex-new-file" aria-label="New file" title="New file"></button>
+              <button class="icon-btn sm" id="ex-new-folder" aria-label="New folder" title="New folder"></button>
+              <button class="icon-btn sm" id="ex-refresh" aria-label="Refresh" title="Refresh"></button>
+              <button class="icon-btn sm" id="ex-collapse" aria-label="Collapse all" title="Collapse all"></button>
+            </span>
+          </div>
+          <div class="tree" id="tree" tabindex="0" role="tree" aria-label="Files"></div>
+          <div class="explorer-empty" id="explorer-empty">
+            <p>Open a folder to browse and edit its files.</p>
+            <button class="btn primary" id="ex-open-folder">Open folder</button>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-search" hidden>
+          <div class="panel-head"><span class="panel-title">Search</span></div>
+          <form novalidate class="search-form" id="search-form">
+            <div class="field-pill">
+              <input id="search-input" type="text" placeholder="Search in files" spellcheck="false" aria-label="Search query">
+              <button type="button" class="chip-toggle" id="s-case" title="Match case" aria-pressed="false">Aa</button>
+              <button type="button" class="chip-toggle" id="s-word" title="Whole word" aria-pressed="false">ab</button>
+              <button type="button" class="chip-toggle" id="s-regex" title="Regular expression" aria-pressed="false">.*</button>
+            </div>
+          </form>
+          <div class="search-summary" id="search-summary"></div>
+          <div class="search-results" id="search-results" tabindex="0"></div>
+        </section>
+        <section class="panel" id="panel-git" hidden></section>
+        <section class="panel" id="panel-ext" hidden></section>
+      </aside>
+      <div class="sash sash-v" id="sash-sidebar" role="separator" aria-orientation="vertical"></div>
+
+      <main class="center">
+        <div class="editor-panes" id="editor-panes">
+        <section class="editor-pane active-pane" id="pane-left" aria-label="Left editor group">
+        <header class="pane-header"><div class="tabbar" id="tabs" role="tablist" aria-label="Left editor tabs"></div><div class="pane-actions"></div></header>
+        <div class="editor-area" id="editor-area">
+          <div class="editor-host" id="editor-host"></div>
+          <div class="page-host" id="page-host" hidden></div>
+          <div id="find-host"></div>
+          <div class="welcome" id="welcome">
+            <div class="welcome-inner">
+              <div class="welcome-mark" id="welcome-mark"></div>
+              <h1>SunlightIDE</h1>
+              <p class="lead">A calm place to write code.</p>
+              <div class="welcome-actions">
+                <button class="btn primary lg" id="w-open-folder">Open folder</button>
+                <button class="btn secondary lg" id="w-new-file">New file</button>
+              </div>
+              <div class="welcome-recent" id="welcome-recent"></div>
+              <dl class="welcome-keys" id="welcome-keys"></dl>
+            </div>
+          </div>
+        </div>
+        </section>
+        <div id="sash-editors" class="sash sash-v" role="separator" aria-label="Resize editor panes" aria-orientation="vertical" tabindex="0" hidden></div>
+        </div>
+        <div class="sash sash-h" id="sash-terminal" hidden role="separator" aria-orientation="horizontal"></div>
+        <section class="terminal" id="terminal" hidden aria-label="Terminal"></section>
+      </main>
+    </div>
+
+    <footer class="statusbar" id="statusbar"></footer>
+  </div>
+
+  <div id="overlay" class="overlay" hidden></div>
+  <div id="menu-root"></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

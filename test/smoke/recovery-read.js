@@ -1,0 +1,20 @@
+(async () => {
+  const w = window.__sunlight, api = window.sunlight;
+  const out = { passed: 0, failed: [], errors: [] };
+  const check = (label, value) => { if (value) out.passed++; else out.failed.push(label); };
+  window.addEventListener('error', (e) => out.errors.push(e.message));
+  check('tab order and untitled draft restored', w.S.docs[0].name === 'Untitled-1' && w.S.docs.length === 4);
+  check('draft text and CRLF preserved', w.S.docs[0].buffer.getText() === 'draft note\r\nsecond line' && w.S.docs[0].buffer.dirty);
+  const edited = w.S.docs.find((d) => d.path === DEMO + '/edited.txt');
+  check('active tab and unsaved edits recovered', w.S.active === edited && edited.buffer.getLine(0) === 'recovered edit' && edited.buffer.dirty);
+  check('multi-cursor selections restored', w.editor.sels.length === 2 && w.editor.head.line === 7 && w.editor.head.col === 4);
+  check('scroll position restored', w.editor.scroller.scrollTop >= 590);
+  check('recovery never overwrites an externally changed file', (await api.fs.readFile(edited.path)).text === 'external edit');
+  check('clean files reopen their latest disk content', w.S.docs.find((d) => d.path === DEMO + '/clean.txt').buffer.getText() === 'new clean disk content');
+  const deleted = w.S.docs.find((d) => d.path === DEMO + '/deleted.txt');
+  check('deleted files retain their unsaved draft', deleted.buffer.getText() === 'recovered deleted file' && deleted.buffer.dirty);
+  check('recovery notification explains changed disk content', [...document.querySelectorAll('.toast')].some((t) => /also changed on disk/.test(t.textContent)));
+  w.newUntitled();
+  check('new untitled names do not collide', w.S.active.name === 'Untitled-2');
+  return out;
+})();

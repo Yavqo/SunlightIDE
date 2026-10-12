@@ -1,0 +1,42 @@
+{
+  "id": "acme.editor",
+  "name": "Editor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "permissions": [
+    "editor.read",
+    "editor.write"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "info",
+        "title": "info"
+      },
+      {
+        "id": "selections",
+        "title": "selections"
+      },
+      {
+        "id": "bad",
+        "title": "bad"
+      },
+      {
+        "id": "events",
+        "title": "events"
+      },
+      {
+        "id": "pick",
+        "title": "pick"
+      },
+      {
+        "id": "ask",
+        "title": "ask"
+      },
+      {
+        "id": "write",
+        "title": "write"
+      }
+    ]
+  }
+}

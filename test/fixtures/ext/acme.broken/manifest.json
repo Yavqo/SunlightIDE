@@ -1,0 +1,18 @@
+{
+  "id": "acme.broken",
+  "name": "Broken",
+  "version": "1.0.0",
+  "main": "index.js",
+  "permissions": [],
+  "contributes": {
+    "commands": [
+      {
+        "id": "x",
+        "title": "x"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onStartup"
+  ]
+}

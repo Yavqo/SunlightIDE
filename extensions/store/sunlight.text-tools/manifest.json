@@ -1,0 +1,95 @@
+{
+  "id": "sunlight.text-tools",
+  "name": "Text Tools",
+  "version": "1.0.0",
+  "publisher": "Sunlight",
+  "description": "Sort, de-duplicate and reverse lines, and convert text between camelCase, snake_case, kebab-case and more.",
+  "icon": "icon.svg",
+  "main": "index.js",
+  "categories": [
+    "Text Tools",
+    "Productivity"
+  ],
+  "permissions": [
+    "editor.read",
+    "editor.write"
+  ],
+  "activationEvents": [
+    "onStartup"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "sortAsc",
+        "title": "Sort Lines Ascending",
+        "category": "Text"
+      },
+      {
+        "id": "sortDesc",
+        "title": "Sort Lines Descending",
+        "category": "Text"
+      },
+      {
+        "id": "reverseLines",
+        "title": "Reverse Lines",
+        "category": "Text"
+      },
+      {
+        "id": "uniqueLines",
+        "title": "Remove Duplicate Lines",
+        "category": "Text"
+      },
+      {
+        "id": "trimLines",
+        "title": "Trim Trailing Whitespace",
+        "category": "Text"
+      },
+      {
+        "id": "camel",
+        "title": "Convert to camelCase",
+        "category": "Text"
+      },
+      {
+        "id": "pascal",
+        "title": "Convert to PascalCase",
+        "category": "Text"
+      },
+      {
+        "id": "snake",
+        "title": "Convert to snake_case",
+        "category": "Text"
+      },
+      {
+        "id": "kebab",
+        "title": "Convert to kebab-case",
+        "category": "Text"
+      },
+      {
+        "id": "constant",
+        "title": "Convert to CONSTANT_CASE",
+        "category": "Text"
+      },
+      {
+        "id": "title",
+        "title": "Convert to Title Case",
+        "category": "Text"
+      },
+      {
+        "id": "upper",
+        "title": "Convert to UPPER CASE",
+        "category": "Text"
+      },
+      {
+        "id": "lower",
+        "title": "Convert to lower case",
+        "category": "Text"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "Mod+Alt+S",
+        "command": "sortAsc"
+      }
+    ]
+  }
+}

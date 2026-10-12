@@ -1,0 +1,27 @@
+{
+  "id": "sunlight.workspace-stats",
+  "name": "Workspace Stats",
+  "version": "1.0.0",
+  "publisher": "Sunlight",
+  "description": "Count the lines of code in the folder you have open, grouped by file type.",
+  "icon": "icon.svg",
+  "main": "index.js",
+  "categories": [
+    "Productivity"
+  ],
+  "permissions": [
+    "workspace.read"
+  ],
+  "activationEvents": [
+    "onCommand:count"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "count",
+        "title": "Count Lines of Code",
+        "category": "Workspace"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "acme.noperms",
+  "name": "Noperms",
+  "version": "1.0.0",
+  "main": "index.js",
+  "permissions": [],
+  "contributes": {
+    "commands": [
+      {
+        "id": "probe",
+        "title": "probe"
+      },
+      {
+        "id": "spam",
+        "title": "spam"
+      }
+    ]
+  }
+}

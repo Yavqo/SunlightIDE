@@ -1,0 +1,14 @@
+node_modules/
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Generated on npm install.
+src/renderer/vendor/
+src/renderer/icons/
+
+# Generated registry packages and local verification reports.
+build/registry/
+premium-audit.json
+npm-debug.log*

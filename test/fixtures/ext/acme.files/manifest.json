@@ -1,0 +1,18 @@
+{
+  "id": "acme.files",
+  "name": "Files",
+  "version": "1.0.0",
+  "main": "index.js",
+  "permissions": [
+    "workspace.read",
+    "workspace.write"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "run",
+        "title": "run"
+      }
+    ]
+  }
+}
