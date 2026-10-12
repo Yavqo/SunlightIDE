@@ -22,8 +22,14 @@
   const unlisten = api.pty.onData((id, text) => { if (id === 'package-probe') output += text; });
   try {
     await api.pty.create('package-probe', { cwd: DEMO, cols: 80, rows: 24 });
-    api.pty.write('package-probe', 'echo SUNLIGHT_PACKAGE_READY\r');
-    check('packaged native terminal launches and runs a command', await waitFor(() => /(?:^|\n)SUNLIGHT_PACKAGE_READY\r?(?:\n|$)/.test(output)));
+    const windows = (await api.info()).platform === 'win32';
+    api.pty.write('package-probe', windows ? 'echo SUNLIGHT_PACKAGE_REA^DY\r' : "echo SUNLIGHT_PACKAGE_REA'DY'\r");
+    const plainOutput = () => output.replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, '').replace(/\x1b\][^\x07]*(?:\x07|\x1b\\)/g, '');
+    // ConPTY redraws the console with cursor escapes instead of emitting plain LF lines.
+    // Quoting splits the token in the input, so only the executed command produces it.
+    const ran = await waitFor(() => plainOutput().includes('SUNLIGHT_PACKAGE_READY'));
+    check('packaged native terminal launches and runs a command', ran);
+    if (!ran) out.terminalOutput = output.slice(-2000);
   } catch (error) { out.failed.push('packaged terminal: ' + error.message); }
   finally { await api.pty.kill('package-probe').catch(() => {}); unlisten(); }
   await w.checkpointSession();
