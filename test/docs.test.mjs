@@ -7,7 +7,7 @@ import { renderMarkdown } from '../src/renderer/ui/markdown.js';
 import { PERMISSION_TEXT } from '../src/renderer/ui/extensions.js';
 
 const docs = fs.readFileSync(new URL('../docs/extensions.md', import.meta.url), 'utf8');
-const blocks = [...docs.matchAll(/```(\w+)?\n([\s\S]*?)```/g)].map((x) => ({ lang: x[1] || '', code: x[2] }));
+const blocks = [...docs.matchAll(/```(\w+)?\r?\n([\s\S]*?)```/g)].map((x) => ({ lang: x[1] || '', code: x[2] }));
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 
 test('every JavaScript example in the guide at least parses', () => {

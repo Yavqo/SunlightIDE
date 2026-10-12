@@ -7,13 +7,26 @@ import { execFileSync } from 'node:child_process';
 import git from '../src/main/git.js';
 
 const sh = (cwd, ...args) => execFileSync('git', args, { cwd, encoding: 'utf8', env: { ...process.env, GIT_AUTHOR_NAME: 'T', GIT_AUTHOR_EMAIL: 't@t', GIT_COMMITTER_NAME: 'T', GIT_COMMITTER_EMAIL: 't@t' } });
-const tmp = () => fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'sunlight-git-')));
+const tmp = () => fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(), 'sunlight-git-')));
 const write = (dir, f, text) => { fs.mkdirSync(path.dirname(path.join(dir, f)), { recursive: true }); fs.writeFileSync(path.join(dir, f), text); };
 const call = (m, dir, ...args) => git.call(m, dir, args);
 
 // Make the commits made by the service work without a global identity.
 process.env.GIT_AUTHOR_NAME = 'T'; process.env.GIT_AUTHOR_EMAIL = 't@t';
 process.env.GIT_COMMITTER_NAME = 'T'; process.env.GIT_COMMITTER_EMAIL = 't@t';
+// Keep fixture bytes stable regardless of the host's Windows autocrlf preference.
+const previousConfigCount = process.env.GIT_CONFIG_COUNT;
+const configIndex = Number(previousConfigCount || 0);
+process.env.GIT_CONFIG_COUNT = String(configIndex + 1);
+process.env[`GIT_CONFIG_KEY_${configIndex}`] = 'core.autocrlf';
+process.env[`GIT_CONFIG_VALUE_${configIndex}`] = 'false';
+test.after(() => {
+  if (previousConfigCount === undefined) delete process.env.GIT_CONFIG_COUNT;
+  else process.env.GIT_CONFIG_COUNT = previousConfigCount;
+  delete process.env[`GIT_CONFIG_KEY_${configIndex}`];
+  delete process.env[`GIT_CONFIG_VALUE_${configIndex}`];
+});
+
 
 test('parseStatus handles branch headers, renames, unmerged, untracked, ignored', () => {
   const text = [
@@ -36,7 +49,7 @@ test('non-repo folders are reported, init creates a repo', async () => {
   assert.equal(i.available, true); assert.equal(i.isRepo, false);
   await call('init', dir);
   const j = await call('info', dir);
-  assert.equal(j.isRepo, true); assert.equal(j.root, dir);
+  assert.equal(j.isRepo, true); assert.equal(fs.realpathSync.native(j.root), dir);
 });
 
 test('status, stage, unstage, commit, head text, discard', async () => {
