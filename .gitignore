@@ -12,3 +12,6 @@ src/renderer/icons/
 build/registry/
 premium-audit.json
 npm-debug.log*
+
+# Packaged applications and installers.
+dist/

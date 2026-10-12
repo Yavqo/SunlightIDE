@@ -11,7 +11,7 @@ function stop(reason = 'Language service stopped.') {
 }
 function run(method, request) {
   if (!worker) {
-    const current = worker = new Worker(path.join(__dirname, 'language-worker.js'));
+    const current = worker = new Worker(path.join(__dirname, 'language-worker.js').replace(/app\.asar([/\\])/, 'app.asar.unpacked$1'));
     current.on('message', ({ id, value, error }) => {
       const p = pending.get(id); if (!p) return;
       pending.delete(id); clearTimeout(p.timer);

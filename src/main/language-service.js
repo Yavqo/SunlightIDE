@@ -36,17 +36,21 @@ class LanguageService {
     if (!request || !path.isAbsolute(request.file || '') || !Array.isArray(request.documents) || request.documents.length > 100) throw new Error('Invalid language request.');
     let bytes = 0;
     const files = new Map();
+    const originals = new Map();
+    const canonical = (file) => ts.normalizePath(path.resolve(file));
     for (const doc of request.documents) {
       if (!path.isAbsolute(doc.file || '') || typeof doc.text !== 'string') throw new Error('Invalid document.');
       bytes += Buffer.byteLength(doc.text);
       if (bytes > 10 * 1024 * 1024) throw new Error('Open documents exceed the language service limit (10 MB).');
-      const previous = this.files.get(doc.file);
-      files.set(doc.file, { text: doc.text, version: previous?.text === doc.text ? previous.version : this.revision + 1 });
+      const filename = canonical(doc.file);
+      originals.set(filename, doc.file);
+      const previous = this.files.get(filename);
+      files.set(filename, { text: doc.text, version: previous?.text === doc.text ? previous.version : this.revision + 1 });
     }
     this.files = files;
-    this.configure(request.root && path.isAbsolute(request.root) ? request.root : path.dirname(request.file));
+    this.configure(canonical(request.root && path.isAbsolute(request.root) ? request.root : path.dirname(request.file)));
     this.revision++;
-    const file = request.file, text = files.get(file)?.text;
+    const file = canonical(request.file), text = files.get(file)?.text;
     if (text === undefined) throw new Error('Document is not open.');
     const pos = Math.max(0, Math.min(text.length, Number(request.offset) || 0));
     const service = this.service;
@@ -56,7 +60,7 @@ class LanguageService {
       if (!sf) return null;
       const start = sf.getLineAndCharacterOfPosition(span.start);
       const end = sf.getLineAndCharacterOfPosition(span.start + span.length);
-      return { file: fileName, start: { line: start.line, col: start.character }, end: { line: end.line, col: end.character } };
+      return { file: originals.get(canonical(fileName)) || path.normalize(fileName), start: { line: start.line, col: start.character }, end: { line: end.line, col: end.character } };
     };
     if (method === 'completion') {
       const prefix = /[\w$]*$/.exec(text.slice(0, pos))[0].toLowerCase();

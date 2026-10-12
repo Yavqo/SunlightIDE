@@ -53,7 +53,7 @@ npm run smoke   # launches the real app headlessly: input, mouse, multi-cursor, 
 - Git covers the everyday workflow. Not included: staging individual hunks or lines, a merge-conflict resolver, interactive rebase, and credential prompts (pushes need an SSH agent or a configured credential helper, because prompts are disabled so Git can never hang the app).
 - Code folding and language intelligence for languages other than JavaScript/TypeScript are not included yet.
 - Monospace layout assumes one cell per character, so double-width CJK text and some emoji will not align perfectly.
-- Packaging into a `.app`/installer is not configured (add `electron-builder` or `@electron-forge`).
+- Release installers are built with electron-builder. Developer ID notarization and Windows Authenticode signing are not configured yet.
 
 ## Credits
 
@@ -62,3 +62,12 @@ File and folder icons are from [Material Icon Theme](https://github.com/material
 ## Design
 
 UI follows the Yavqo design language: white canvas, one blue, pill buttons, flat surfaces, Plus Jakarta Sans for the interface and Geist Mono for code (both self-hosted from `src/renderer/fonts`).
+
+## Installers
+
+Run `npm run dist:mac` on an Apple Silicon Mac to create a `.dmg`, or
+`npm run dist:win` on Windows x64 to create the setup `.exe`. Installers are written
+to `dist/`. `node scripts/test-package.js` launches the packaged application with
+a temporary profile and verifies language intelligence, bundled extensions, the
+native terminal and recovery. The Build installers GitHub Actions workflow builds
+both platforms and can attach validated installers to an existing draft release.

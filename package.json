@@ -14,7 +14,10 @@
     "icons": "node scripts/icons.js",
     "registry:build": "node scripts/build-registry.js",
     "test:recovery": "node scripts/test-recovery.js",
-    "test:split-recovery": "node scripts/test-recovery.js --split"
+    "test:split-recovery": "node scripts/test-recovery.js --split",
+    "dist:mac": "electron-builder --mac dmg --arm64 --publish never",
+    "dist:win": "electron-builder --win nsis --x64 --publish never",
+    "pack": "electron-builder --dir --publish never"
   },
   "license": "UNLICENSED",
   "private": true,
@@ -22,6 +25,7 @@
     "@fontsource-variable/geist-mono": "^5.3.0",
     "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
     "electron": "^44.7.0",
+    "electron-builder": "26.17.0",
     "material-icon-theme": "^5.39.0"
   },
   "dependencies": {
@@ -29,5 +33,81 @@
     "@xterm/addon-fit": "^0.11.0",
     "@xterm/xterm": "^6.0.0",
     "typescript": "6.0.3"
+  },
+  "author": {
+    "name": "Yavqo"
+  },
+  "build": {
+    "appId": "com.yavqo.sunlightide",
+    "productName": "SunlightIDE",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "extensions/store/**/*",
+      "docs/**/*",
+      "build/icon.png",
+      "package.json",
+      "!**/*.map"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "src/main/language-worker.js",
+      "src/main/language-service.js",
+      "node_modules/typescript/**/*",
+      "node_modules/@lydell/node-pty*/**/*"
+    ],
+    "npmRebuild": false,
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.developer-tools",
+      "icon": "build/icon.png",
+      "identity": "-",
+      "artifactName": "SunlightIDE-${version}-macOS-${arch}.${ext}"
+    },
+    "dmg": {
+      "title": "SunlightIDE ${version}",
+      "contents": [
+        {
+          "x": 140,
+          "y": 200,
+          "type": "file"
+        },
+        {
+          "x": 400,
+          "y": 200,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.png",
+      "signAndEditExecutable": true,
+      "artifactName": "SunlightIDE-${version}-Windows-${arch}-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SunlightIDE"
+    },
+    "extraResources": [
+      {
+        "from": "node_modules/typescript/lib",
+        "to": "app.asar.unpacked/node_modules/typescript/lib",
+        "filter": [
+          "**/*.d.ts"
+        ]
+      }
+    ]
   }
 }
